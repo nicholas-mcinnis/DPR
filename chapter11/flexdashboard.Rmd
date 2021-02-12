@@ -1,0 +1,13 @@
+```{r}
+title: "Chart Stack (Fill)"
+output: 
+  flexdashboard::flex_dashboard:
+    vertical_layout: fill
+---
+```
+
+```{r}
+library(readr)
+gdp5 <- read_csv("/cloud/project/chapter10/data/chapter10data.csv")
+```
+

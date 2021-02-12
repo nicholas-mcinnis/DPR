@@ -1,0 +1,54 @@
+---
+title: "mock_midterm_exam"
+author: "Thierry Warin"
+date: "06/02/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Welcome to this midterm exam.
+
+You can start right now and you have 3 hours. Do not miss the deadline on ZoneCours, otherwise you will not be able to upload it, I cannot accept your files by emails or other means. So, please give yourself enough time to upload your file on ZoneCours to avoid any potential issue (connections, etc.).
+
+Please follow the directions for each questions. Only this Rmd file will be graded (not Word, not the html version, etc.). Once completed, save it, export it on clicking on the "more" button in the bottom-right panel, and then upload it to ZoneCours.
+
+This midterm is organized in two parts: foundations and applications. Have a look at the whole midterm first to gauge how much time you can devote to each question, and then go for it! Applications will require more time.
+
+# 1. Foundations Questions
+
+## Question 1
+
+Can you fix the following code?
+
+Note: I only numbers with two decimals to make a nice table.
+
+```{r}
+poverty <- readr::read_tsv("https://warin.ca/datalake/courses_data/qmibr/session4/poverty.txt")
+
+model1 <- lm(poverty$Poverty ~ poverty$Graduates)
+
+library(stargazer)
+stargazer(model1, type="text", header=FALSE)
+```
+
+
+## Question 2
+
+For further examples, see the respective sessions' quizzes
+
+# 2. Applications Questions
+
+## question 1
+
+You have been selected as a referee for this submitted article to our academic journal: "Internationalization and performance of small- and medium-sized enterprises."
+
+In a maximum of 500 words, analyze this article. Highlight the contributions and the validity of the empirical estimation. Use all the steps you have learned in the first 5 sessions of our course. Would you recommend:
+
+- accept
+- revise and resubmit with minor revisions
+- revise and resubmit with major revisions
+- reject
+
