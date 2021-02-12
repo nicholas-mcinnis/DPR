@@ -1,0 +1,22 @@
+---
+title: "Testing testing"
+output: html_document
+---
+
+``
+```{r}
+library(readr)
+mydata <- data.frame(stack.loss)   # built-in data
+plot(stack.loss)
+mean(mydata$stack.loss)
+median(mydata$stack.loss)
+```
+
+```{r}
+library(e1071)
+kurtosis(stack.loss)
+skewness(stack.loss)
+length(stack.loss)
+sample(stack.loss)
+```
+

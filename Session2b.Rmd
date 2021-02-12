@@ -1,0 +1,17 @@
+---
+title: "Session2b"
+output: html_document
+---
+
+```{r}
+# code chunk here
+library(ISLR)
+library(dplyr)
+mydata <- data.frame(College)
+str(mydata)
+summary(mydata)
+pairs(mydata)
+```
+
+
+

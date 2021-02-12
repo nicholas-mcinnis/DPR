@@ -1,0 +1,44 @@
+---
+title: "Session1"
+author: "Nicholas McInnis - 11290398"
+output: html_document
+---
+
+## Code chunk
+
+````{r}
+#this is an summary
+summary(cars)
+#this is a boxplot
+plot(cars)
+````
+  
+### Inline code
+
+The average speed of the dataset is equal to `r mean(cars$speed)` mile per hour.  
+
+
+## Embedding an image
+
+
+![](./Lisbon.jpg)  
+## Syntax
+
+*italic*
+**bold**
+^superscript^^2^^3^
+~~strikethrough~~
+
+Here is a picture from my trip to *Lisbon* (**Portugal**) in 2018^November^. Enjoy :)  
+
+### Adding a link
+
+{[https://www.linkedin.com/in/nicholas-mcinnis/]}  
+
+
+## Equation
+
+$y_i= \alpha_0 + \alpha_1.x_1+\alpha_2.x_2+\alpha_3.x_3+\epsilon$
+
+
+
