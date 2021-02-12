@@ -1,0 +1,25 @@
+---
+title: "Untitled2"
+author: "Nicholas McInnis"
+output: html_document
+---
+
+```{r}
+library(readr)
+gdp5 <- read_csv("chapter10data.csv")
+```
+```{r}
+library(ggplot2)
+ggplot(gdp5, aes(x=year, y=gdp, color = country)) +
+  geom_line(size = 1) +
+  xlab("years") + 
+  ylab("Gross domestic product") +
+  labs(color = "countries") +
+  theme_minimal() + 
+  scale_color_brewer(direction = -1) +
+  geom_point(size = 1.5)
+```
+
+
+
+
