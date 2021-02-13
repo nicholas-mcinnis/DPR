@@ -123,5 +123,166 @@ head(dataUnido)
 # Provide the dimension of the dataframe
 dim(dataUnido)
 ```
+  
+### 7.3 Subsetting a dataset
+  
+```{r}
+# Subset of dataUnido based on countryCode == Canada
+dataUnidoCanada <- filter(dataUnido, countryCode == 124)
+
+# First lines of the dataframe
+head(dataUnidoCanada)
+```
+
+````{r}
+# Subset of dataUnidoCanada based on two variables (number of employees and establishments)
+dataUnidoCanadaVariables <- filter(dataUnidoCanada, tableCode == 01 | tableCode == 04)
+
+# First lines of the dataframe
+head(dataUnidoCanadaVariables)
+```
+  
+```{r}
+# Subset of dataUnido based on countryCode == Canada
+dataUnidoCanadaVariablesAfter2009 <- filter(dataUnidoCanadaVariables, year > 2009)
+
+# First lines of the dataframe
+head(dataUnidoCanadaVariablesAfter2009)
+
+# Last lines of the dataframe
+tail(dataUnidoCanadaVariablesAfter2009)
+
+# Dimension of the dataframe
+dim(dataUnidoCanadaVariablesAfter2009)
+
+```
+
+
+  
+### Exercice 1: from the UNIDO database, create a dataframe concerning the number of employees in Canada; from 2009 to 2012
+
+```{r}
+dataUnido_ex1 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1uLaXke-KPN28-ESPPoihk8TiXVWp5xuNGHW7w7yqLCc/edit#gid=416085055")
+
+colnames(dataUnido_ex1)
+
+dataUnido_ex1$isicCode <- NULL
+dataUnido_ex1$tableCode <- NULL
+dataUnido_ex1$isicCodeCombinaison <- NULL
+dataUnido_ex1$value <- NULL
+dataUnido_ex1$sourceCode <- NULL
+dataUnido_ex1$updateYear <- NULL
+dataUnido_ex1$unit <- NULL
+
+dataUnido_ex1 <- rename(dataUnido_ex1, Country=countryCode)
+dataUnido_ex1 <- rename(dataUnido_ex1, Year=year)
+dataUnido_ex1 <- rename(dataUnido_ex1, Employees=tableDefinitionCode)
+
+dataUnido_ex1Filtered <- filter(dataUnido_ex1, Country==124 & Year >= 2009 & Year <= 2012 & Employees==04)
+
+
+```
+  
+  
+### Data sort
+
+```{r}
+# dataSorted will receive the dataframe dataUnidoCanadaVariablesAfter2009 sorted by the column value
+dataSorted <- arrange(dataUnidoCanadaVariablesAfter2009, value)
+
+# dataReverse is the opposite of dataSorted, i.e. the first lines will have the highest values
+dataReverse <- arrange(dataUnidoCanadaVariablesAfter2009, desc(value))
+```
+
+  
+  
+## Chapter 8 data wrangling 3/4
+
+```{r}
+# Loading reshape2
+library(tidyr)
+
+# Using pivot_wider() to transform a long dataframe into a wide dataframe
+wideData <- dataSorted %>% pivot_wider(names_from = isicCode, values_from = value)
+
+# First 6 lines
+head(wideData)
+
+# Dimension of the dataset
+dim(wideData)
+
+```
+
+
+## Ch9 dataWrangling 4/4
+
+```{r}
+# Loading the gsheet package
+library(gsheet)
+
+# Read data from the URL
+dataUnido <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1uLaXke-KPN28-ESPPoihk8TiXVWp5xuNGHW7w7yqLCc/edit#gid=416085055")
+
+dataUnido
+```
+
+
+```{r}
+# Erasing non important variables
+dataUnido$isicCodeCombinaison <- NULL
+dataUnido$tableDefinitionCode <- NULL
+dataUnido$sourceCode <- NULL
+dataUnido$updateYear <- NULL
+dataUnido$unit <- NULL
+```
+
+
+```{r}
+# Loading the dplyr package
+library(tidyverse)
+
+# Dataset for dataCanada131
+dataCanada131 <- filter(dataUnido, countryCode == 76)
+dataCanada131 <- filter(dataCanada131, isicCode == 131)
+dataCanada131 <- filter(dataCanada131, tableCode == 4)
+dataCanada131 <- filter(dataCanada131, year > 2008)
+
+dataCanada131 <- dataCanada131 %>% pivot_wider(names_from = isicCode, values_from = value)
+
+head(dataCanada131)
+
+
+# Dataset for dataCanada181
+dataCanada181 <- filter(dataUnido, countryCode == 76)
+dataCanada181 <- filter(dataCanada181, isicCode == 181)
+dataCanada181 <- filter(dataCanada181, tableCode == 4)
+dataCanada181 <- filter(dataCanada181, year > 2008)
+
+dataCanada181 <- dataCanada181 %>%
+  pivot_wider(names_from = isicCode, values_from = value)
+
+head(dataCanada181)
+```
+
+
+```{r}
+# Merging 2 datasets
+dataCanadaFull <- left_join(dataCanada131, dataCanada181, c("year","tableCode","countryCode"))
+
+# First 6 lines
+head(dataCanadaFull)
+```
+
+```{r}
+# Transform dataCanadaFull in long data format
+dataCanadaFullLong <- dataCanadaFull %>% 
+  pivot_longer(!c(year, tableCode, countryCode), names_to = "isicCode", values_to = "value")
+```
+
+```{r}
+readr::write_csv(dataCanadaFullLong, "./chapter6/data/dataCanadaFullLong.csv")
+```
+
+
 
 
