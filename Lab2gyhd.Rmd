@@ -4,6 +4,124 @@ author: "Nicholas McInnis"
 output: html_document
 ---
 
+## Chapter 5 Rrrrrr
 
+```{r}
+library(gsheet)
+library(dplyr)
+library(readr)
+```
+
+```{r}
+dataUnido <- gsheet::gsheet2tbl("https://docs.google.com/spreadsheets/d/1uLaXke-KPN28-ESPPoihk8TiXVWp5xuNGHW7w7yqLCc/edit#gid=416085055")
+```
+
+```{r}
+library(gsheet)
+
+dataUnido <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1uLaXke-KPN28-ESPPoihk8TiXVWp5xuNGHW7w7yqLCc/edit#gid=416085055")
+```
+
+```{r}
+glimpse(dataUnido)
+head(dataUnido)
+```
+
+
+```{r}
+# Transformation from character to numerical values
+dataUnido$tableCode <- as.character(dataUnido$tableCode)
+dataUnido$countryCode <- as.character(dataUnido$countryCode)
+dataUnido$year <- as.character(dataUnido$year)
+dataUnido$isicCode <- as.character(dataUnido$isicCode)
+dataUnido$value <- as.character(dataUnido$value)
+
+# Structure of the dataframe
+summary(dataUnido)
+```
+
+```{r}
+unidoData <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1uLaXke-KPN28-ESPPoihk8TiXVWp5xuNGHW7w7yqLCc/edit#gid=416085055")
+```
+  
+  
+  
+  
+## Chapter 6 Data Wrangling 1/4
+
+```{r}
+# Loading the dataset into a variable named 'gdpCountryData'
+gdpCountryData <- readr::read_csv("./chapter6/data/gdpCountry.csv")
+```
+
+
+```{r}
+variablesUnido <- gsheet::gsheet2tbl("https://docs.google.com/spreadsheets/d/1JYiydgI9QEOKAStmtmrBTmGuGQ0bx1gnnarO4Db0MD8/edit#gid=919352283")
+
+variablesUnido
+```
+
+
+```{r}
+library(readr)
+gdp <- read.csv("./chapter6/data/chapter6data.csv")
+
+locations <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1nehKEBKTQx11LZuo5ZJFKTVS0p5y1ysMPSOSX_m8dS8/edit?usp=sharing")
+
+```
+
+  
+  
+## Chapter 7 Data Wrangling 2/4
+
+```{r}
+dataUnido$newColumn <- 42
+dataUnido$newColumn2 <- 50
+
+colnames(dataUnido)
+
+dataUnido[,"newColumn"]
+```
+```{r}
+# Multiply by 2 and add 5
+dataUnido$newColumn <- dataUnido$newColumn * 2 + 5
+
+# Show the column 'newColumn'
+dataUnido[,"newColumn"]
+```
+
+```{r}
+dataUnido <- dataUnido %>% 
+  dplyr::rename(newColumnRenamed = newColumn)
+
+```
+
+
+```{r}
+# Delete the column named 'newColumn'
+dataUnido$newColumnRenamed <- NULL
+dataUnido$newColumn2 <- NULL
+dataUnido$newColumn <- NULL
+
+# Show columns' name
+colnames(dataUnido)
+```
+
+
+```{r}
+# erasing non important variables
+dataUnido$isicCodeCombinaison <- NULL
+dataUnido$tableDefinitionCode <- NULL
+dataUnido$sourceCode <- NULL
+dataUnido$updateYear <- NULL
+dataUnido$unit <- NULL
+
+# Show columns' name
+colnames(dataUnido)
+head(dataUnido)
+
+# Provide the dimension of the dataframe
+dim(dataUnido)
+```
 
 
