@@ -30,7 +30,9 @@ summary(mydata)  # 78 Elite
 ```
 
 ```{r}
-
+hist(mydata$Expend,
+     breaks=25,
+     main="Expend")
 ```
 
 
