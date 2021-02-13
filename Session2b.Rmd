@@ -13,5 +13,25 @@ summary(mydata)
 pairs(mydata)
 ```
 
-## I love this game
+## I love this game (test for git push)
+
+```{r}
+boxplot(Outstate~Private,
+        data=mydata,
+        xlab="Private",
+        ylab="Outstate")
+```
+
+
+```{r}
+mydata <- mydata %>% mutate(Elite = case_when(mydata$Top10perc > 50 ~ "Yes",
+                                   TRUE ~ "No"))
+summary(mydata)  # 78 Elite
+```
+
+```{r}
+
+```
+
+
 
