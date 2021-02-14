@@ -284,5 +284,37 @@ readr::write_csv(dataCanadaFullLong, "./chapter6/data/dataCanadaFullLong.csv")
 ```
 
 
+### Ch6 gettingYourHandsDirty
+
+```{r}
+# Step 1 : Import via a csv
+library(readr)
+gdp <- read_csv("./chapter6/data/chapter6data.csv")
+
+# Step 2 : Import via a gsheet
+library(gsheet)
+locations <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1nehKEBKTQx11LZuo5ZJFKTVS0p5y1ysMPSOSX_m8dS8/edit?usp=sharing")
+
+
+# Step 3 : Delete the column X1
+gdp$X1 <- NULL
+
+head(gdp)
+
+# Step 4 : Filter the data
+library(dplyr)
+gdp2 <- filter(gdp, country == "United States" | country == "Canada" | country == "Japan" | country == "Belgium" | country == "France")
+
+# Step 5 : “Lengthens” the data
+library(tidyr)
+gdp3 <- gdp2 %>% 
+  pivot_longer(!c(country), names_to = "year", values_to = "gdp")
+
+# Step 6 : Merging datasets
+
+gdp4 <- left_join(gdp3, locations, c("country"))
+```
+
+
 
 
