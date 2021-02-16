@@ -1,0 +1,39 @@
+---
+title: "Session 5"
+Author: "Nicholas McInnis - 11290398"
+output: html_document
+---
+
+## 1. Panel data analysis
+
+```{r}
+# Step 1. Running a TSCS model
+
+mydata1 <- readr::read_csv("https://warin.ca/datalake/courses_data/qmibr/session5/panel_data_1.csv")
+head(mydata1)
+
+if (!require("plm")) install.packages("plm")
+library(plm)
+mydata_1_random <- plm(grossdebt ~ busfreedom + finfreedom + invfreedom, data = mydata1, index = c("country", "year"), model = "random")
+
+summary(mydata_1_random)
+
+# Step 2: fixed effects and random effects
+
+# Running a panel data with fixed effects
+fixed <- plm(grossdebt ~ busfreedom + finfreedom + invfreedom,
+             data = mydata1, index = c("country", "year"), model = "within")
+# Running a panel data with random effects
+random <- plm(grossdebt ~ busfreedom + finfreedom + invfreedom,
+              data = mydata1, index = c("country", "year"), model = "random")
+# Running the Hausman test
+phtest(fixed, random)
+
+```
+
+## 2. Quadratic effects
+
+```{r}
+# 
+```
+

@@ -1,0 +1,358 @@
+---
+title: "MIDTERM EXAM"
+author: "Nicholas McInnis - 11290398"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+---
+
+**Welcome to this midterm exam!**
+
+Before doing anything, replace the author information in the YAML with your own information.
+
+You can use the PDF version on ZoneCours for your comfort, but the answers must be provided in the Rmd file.
+
+> You can start right now and you have 3 hours. You can use all the material made available for this course. Do not miss the deadline on ZoneCours, otherwise you will not be able to upload it, I cannot accept your files by emails or any other means. So, please give yourself enough time to upload your file on ZoneCours to avoid any potential issue (connections, etc.).
+
+Please follow the directions for each question. **Only this Rmd file will be graded** (not Word, not the html version, etc.).
+
+Once completed:
+
+- Step 1. save this Rmd file in your session as an Rmd file by just clicking on the little disk icon in RStudio.cloud,
+
+- Step 2. select it on the bottom-right panel by checking the little white box and then export it by clicking on the "more" button in the bottom-right panel,
+
+- Step 3. and then upload it to ZoneCours.
+
+# Important recommendations
+
+- This midterm is graded over 25 points and is organized in three exercises.
+
+- Have a look at the whole midterm first to gauge how much time you can devote to each question. This midterm values different skill sets. If you do not know the mathematical explanation, use plain English. I give partial credits.
+
+- VERY IMPORTANT: do not focus only on the code, do not provide code without explanations of why you use this code. So, do not fall into the trap of just providing a code chunk thinking that it is the answer. It is only a partial answer.
+
+- Individual exam, no communications allowed. If you are not sure about your understanding of a question, make assumptions.
+
+- You have access to (only) all our class material.
+
+
+
+
+
+
+\newpage 
+
+---
+
+# Exercise 1: Foundations Questions (Total points: 5)
+
+Directions: no copying and pasting from your class material. Replace the mock text, which is there to give you a sense of how long/concise your answer should be.
+
+## Question 1 (1 point)
+
+**In your own words, can you explain the survivorship bias?**
+
+Survivorship bias is a phenomenon where mathematical models are biased because they are making assumptions about the population using incomplete sample data. More specifically, it is only possible to collect data from "survivors" and therefore, statistical inferences from "survivors should not provide an accurate generalization of a true population that is comprised of both survivors and non-survisors, the latter of which we cannot collect data from. A good example is the plane and bullet holes example, where data on planes can only be collected from returning planes, and we will never know exactly where the bullter holes are for the non-surviving planes. Intuitively, we can argue that planes shot down received bullter holes in critical areas, such as the cockpit and engines, however we cannot support this statictically because of the survivorship bias.
+
+
+
+## Question 2 (1 point)
+
+**In your own words, can you explain the Central Limit Theorem?**
+
+In my words, the central limit theorem describes how as we increase the sample size, the mean of the sample will converge towards the population (normal distribution) and will be more evenely distributed. This phenomenon can also be interpreted as the law of big numbers, and it the phenomenon can be observed using a histogram. In order for the phenomenom to occur, sampling observations must be independent from one another, be without replacement, and be selected using random sampling techniques.
+
+
+
+## Question 3 (1 point)
+
+**In your own words, explain TSS and RSS, why are they useful?**
+
+TSS (total sum of squares) measures the difference between individual observations of the dependent variable (y) and their sample mean (y-bar), which represents the total variance in y. RSS on the other hand, measures the difference between individual observations of the dependent variable (y) and their corresponding fitted observation of the dependent by the model (y-hat). In other words, RSS represents the model error.
+
+Together, RSS and TSS can be useful for finding F, which is useful for hypothesis testing and assessing model significance. They are also useful for finding R-squared, using the formula : R-squared = 1-(RSS/TSS) , which is key for assessing model significance. RSS can be divided by degrees of freedom to find the residual standard errors (RSE = sqrt(RRS/(n-2)), an effective metric for assessing the accuracy of the model.
+
+
+
+## Question 4 (1 point)
+
+**In your own words, explain what a confidence interval is.**
+
+The confidence interval involves the creation of an interval, using the sample mean, z-score and standard error, that is likely to contain the population mean (mu) at a certain level of confidence (e.g. 95%). For example, for a given confidence interval (confidence level=95%), "we are 95% confident that this confidence interval is likely to contain the true population mean".
+
+
+
+## Question 5 (1 point)
+
+**In your own words, explain hypothesis testing.**
+
+In statictics, hypothesis testing is used to determine if a null hypothesis (Ho), representing the status quo, should be rejected or not in favor of an alternative hypothesis (H1), representing the relationship researchers are trying to prove. Sample data is used to develop a model and this model produces a test-static (usually F-stat or t-stat). Should the absolute value of this test-stat cross a certain significance level threshold in the normal distribution (based on confidence level), the model is statistically significant and the null hypothesis is rejected in favour of the alternative hypothesis.
+
+
+
+
+
+\newpage
+
+---
+
+# Exercise 2 (Total points: 8)
+
+Let us imagine we are in 1999, and you have been selected as a referee for this submitted article to our academic journal: "Effects of age at entry, knowledge intensity, and imitability on international growth" Autio, Erkko; Sapienza, Harry J; Almeida, James G., submitted to Academy of Management Journal; Vol. 43, Iss. 5, 909-924.
+
+Here is the link to the full version of the article, copy and paste it in your browser: <https://www-proquest-com.proxy2.hec.ca/docview/199843639?accountid=11357>
+
+In the space below, **analyze this article with your new analytical skills (you may want to focus on the methods and results sections, pp. 914-918).**
+
+In particular, highlight the contributions, the research question, the results, the models accuracy and the validity of the empirical estimations. For instance, do you suspect multicollinearity? Is there anything missing, something you would add to be sure? Use all the steps you have learned in the first 5 sessions of our course to assess the information you have in this article, the information you do not have, and maybe the steps that the authors did not do but would have been great to do.
+
+Would you recommend:
+
+- accept
+- revise and resubmit with minor revisions
+- revise and resubmit with major revisions
+- reject
+
+> Type your analysis below. Replace the mock text.
+
+The objective of this article was to determine the effect of firm age (x1), knowledge intensity (x2), and the imitability of the firm's technology (x3) on the growth in international sales of born globals (y). This can be reformulated in the following research question: "What is the effect of firm age, knowledge intensity, and technology immitability on the growth of international sales of born-globals?" Based on the hypotheses, this RQ can be formulated into the following equation:
+
+y-hat = B0 - B1*x1 + B2*x2 - B3*x3
+
+In this model, the researchers controlled for variables of Legal Protection, Growth orientation, Firm age, international sales before 1992, DOI in 1992, and total sales in 1992, relevant control variables because they are all before the 5-year window of data collection.
+To investigate this RQ, the researchers collected panel data from 59 high-tech born-global firms in Finland over 5 years. In terms of results, the researchers were able to confirm their hypotheses for firm age and knowledge intensity. However, they found a positive relationship between tech immitability (x3) and growth in international sales (y) instead of the hypothsized negative relationship. The main contribution of this article is "the learning advantage of knewness", which explains how born-global firms that are knowledge intensive can better understand international expasion issues than non-knowledge intensive born-global firms, and can thus generate higher international sales growth. This also supports the hypothesis for knowledge intensity (x2)
+
+In terms of accuracy of the models used, Models 1 and 3 demonstrate the highest adjusted R-squared, though Model 3 is more significant because its F-test result statisitc is higher than that of Model 1. 
+
+As regards model validity, we would need to see the underlying data and residuals to assess linearity, normal distribution of residuals, and constant variance. However, from the tables we have available, we can suspect multicollinearity in the results. More specifically, in Table 1, we notice a correlation between knowledge intensity (x2) and immitability (x3) of -0.38 with a p-value of less than 0.01. This p-value is less than 0.05, which indicates that this correlation is staistically significant and suggest that there is multicollinearity among variables x2 and x3 of the model, which impacts the validity of the model. Qualitatively, this makes sense because the more knowledge-intensive a firm is, the less imitable are the technology it produces, because it is hard to imitate the knowledge behind the technology.
+
+Hence, I would recommend revising and resubmitting with minor suggestions to correct the issue of multicollinearity. I would recommend verifying th findings with three linear models, one for each independent variable, because the combination of the three variables in the same model induces collinearity.
+
+Lastly, I would also suspect a survivorship bias among the firms, in that it is very difficult to collect data about the independent vairables in old firms to determing their growth in international sales if they have declared bankruptcy. Therefore, the data collected may not accurately reflect the population of high-tech-firms in Finland.
+
+> End of your answer
+
+
+
+
+\newpage
+
+---
+
+# Exercise 3 (Total points: 12)
+
+
+Costel Calin and Kevin Buterbaugh have published an article titled "Male  versus Female Career Ambassadors: Is the US Foreign Service Still Biased?" in *Foreign Policy* (Volume 15, issue 2, April 2019). Here is the abstract of the original study:
+
+> "This paper examines the appointment of male versus female career diplomats to ambassadorial posts. We assess the role played by ambassadors’ individual characteristics, including education, marital status, and number of children, and host countries’ characteristics, such as quality of life and regime type, in determining if a male or female is appointed to ambassadorial positions to represent the United States in foreign countries. The time frame of this study is the entire presidencies of Bill Clinton and George W. Bush (1993–2008), during which 603 career diplomats were appointed as ambassadors. The study provides empirical evidence that there remain significant differences between women and men serving as ambassadors. Female ambassadors are more likely to be single and have no children and are less likely to be Ivy League graduates than male ambassadors. Furthermore, they are more likely to be appointed to countries with lower quality of life and better human rights records. Finally, time plays a role in the likelihood of a woman being appointed as ambassador."
+
+Just to give you an idea about their models:
+
+|        Variable       |     Model 1    |     Model 2     |     Model 3     |
+|:---------------------:|:--------------:|:---------------:|:---------------:|
+|     Marital status    | 1.991*** (.41) | 2.061*** (.408) | 2.046*** (.408) |
+|        Children       |  .718** (.360) |  .705** (.359)  |  .729** (.361)  |
+|  Education Ivy League |   .397 (.318)  |        -        |        -        |
+|       Graduate 1      |        -       |   0.74 (.200)   |        -        |
+|       Graduate 2      |        -       |        -        |   -.090 (.302)  |
+|          Time         |  -.062* (.032) |  -.060* (.032)  |  -.059* (.032)  |
+|  Quality of life HDI  | 1.710** (.861) |  1.813** (.861) |  1.805** (.860) |
+|       Inf.mort.       |        -       |        -        |        -        |
+|  GDP/capita (logged)  |        -       |        -        |        -        |
+| Regime type Emp.Index | -.104** (.043) |  -.104** (.043) |  -.104** (.043) |
+|         Polity        |        -       |        -        |        -        |
+| Power of host country |   .094 (.091)  |   .093 (.090)   |   .090 (.090)   |
+|  Secr. of state (sex) |   .261 (.294)  |   .294 (.293)   |   .297 (.294)   |
+|           N           |       455      |       456       |       456       |
+|      $\chi^2$         |      96.68     |      95.37      |      95.32      |
+|          P <          |      0.000     |      0.000      |      0.000      |
+|         $R^2$         |      .199      |       .196      |       .196      |
+
+
+
+Both authors have heard about your great skills as a data analyst. They have updated their dataset with a new variable called "bonus". It captures the yearly bonuses ambassadors receive to compensate for some of the difficulties for living in their host country (cost of living, potential threats, etc.). Apparently, this calculation is done by AI. Both authors wonder whether they could use their updated dataset to do some new analyses. They are worried about biases in the bonus calculation.
+
+Here is a list of the variables:
+
+| Variable name | Definition
+|---------------|----------------------------------------------------------------------|
+| sexofamb      | ambassador's sex, 1: female, 0: male
+| married       | ambassador's marital status
+| children      | 1; if the ambassador has 1 or more children, 0: otherwise
+| HDI           | human development index of host country
+| infmort       | infant mortality in host country
+| ivy           | Ivy league school graduate
+| time          | number of years in the diplomacy
+| sexofsecr     | Secretary of State's sex, 1: female, 0: male
+| loggdp2       | Log GDP of host country
+| graduate1     | Ambassador's education: 0 = undergraduate, 1 = Masters, 2 = PhD
+| graduate2     | Ambassador's education: 0 = undergraduate, 1 = graduate
+
+They put their dataset on a highly secured server, which you can access through this code (run the code chunk by clicking on the little green triangle on the top-right of the code chunk):
+
+```{r, message = FALSE, warning = FALSE}
+if (!require("dplyr")) install.packages("dplyr")
+library(dplyr)
+library(readr)
+mydata1 <- readr::read_csv("https://warin.ca/datalake/courses_data/qmibr/09128734/us_confidential_2.csv")
+
+# uncomment (=remove the hashtag) to view your dataframe
+#View(mydata1)
+```
+
+## Question 1 (1 point)
+
+The new model (let's call it "m4") that Costel Calin and Kevin Buterbaugh want you to test is the following simple linear regression: **"Can we explain the dependent variable "bonus" with the risk exposure for the ambassadors , the latest being measured by the Human Development Index (HDI)?"** Write the code below and explain your results in terms of model accuracy.
+
+```{r, eval = FALSE}
+# Here, I am using bonus as my dependent variable (y) and HDI as my independent variable (x1)
+m4 <- lm(mydata1$bonus ~ mydata1$HDI)
+
+# I am using the summary function to see the Adjusted R-squared
+summary(m4)
+```
+
+
+Explanations:
+
+Using the summary, we can see how the Adjusted R-square is relatively low, meaning that the model doesn't explain the bonus well. However, the HDI variable alone is very accurate, in that it generates a very low p-value, though more variables are needed to construct a more accurate model.
+
+
+## Question 2 (2 points)
+
+**Now, you tell your co-authors that it is also - and maybe more importantly - about model validity. Define the three important concepts you would like to analyze in order to assess the model's validity. Then, run the respective tests in R in the following code chunks. Explain the results.**
+
+Concept 1: Define the concept and write the code below. Explain your results.
+
+```{r, eval = FALSE}
+# Concept 1: Linearity, I want to see if the model follows a linear relationship. This can be done by creating a scatterplot of the data or a residuals plot.
+
+plot(m4$residuals)
+  
+# Although the relationship between y and x is weak, we can indeed observe a linear relationship in the dataset
+```
+
+
+Concept 2: Define the concept and write the code below. Explain your results.
+
+```{r, eval = FALSE}
+
+# Concept 2: Nearly normal residuals. Here, I want to see if the model's residuals follows a normal distribution. This can be observed by creating a histogram of the residuals.
+  
+hist(m4$residuals)
+
+# By observing the histogram, the residuals appear to be normally distributed around the mean. Thus, the model is valid under this concept.
+
+```
+
+
+
+Concept 3: Define the concept and write the code below. Explain your results.
+
+```{r, eval = FALSE}
+# Concept 3: Constant variability/homoscedasticity. Here, we want to see if the data/residuals are homoscedastic, meaning that they vary constantly. We can observe this by making a scatterplot of the data or a residuals plot
+
+plot(m4$residuals)
+
+# Using the residuals plot, we can observe that residuals do vary constantly, and are therefore homoscedastic. Hence, the model is valid under this concept.
+
+```
+
+
+## Question 3 (1 point)
+
+**To fix for some issues, you propose to look into a new model (let's call it "m5") considering HDI and graduate2 as your independent variables. Write the code below and explain your results in terms of model accuracy.**
+
+```{r, eval = FALSE}
+
+# In this new equation(m5), y= bonus (independent variable), x1= hdi and x2= graduate2 (dependent variables. x1 is a numerical variable while x2 is a dummy variable.
+
+m5 <- lm(mydata1$bonus ~ mydata1$HDI + mydata1$graduate2)
+  
+# Model accuracy by refering to the summary, R-squared etc. 
+summary(m5)   
+
+# Explanation: Given the low adjusted R-squared (0.143), the models isnt very effective at explaining y. However, the coefficients are quite significant given their low p-values, notably HDI.
+
+```
+
+
+## Question 4 (1.5 point)
+
+**Compare m4 and m5, which one is better? Explain your options and results.**
+
+```{r, eval = FALSE}
+
+# In comparison, m4 and m5 both have very low adjusted R-squared values (0.1374 and 0.143 respectively), though m5 is slightly more accurate with the adde independent variable. However, since these are nested models, the best comparison is the F-test, which accounts for degrees of freedom. M4 has an F-stat of 76.83 whereas m5 has an F-stat of 40.72, and thus comaratively, m4 is the more accurate model.
+
+```
+
+
+
+## Question 5 (2 points)
+
+**Bonuses have also been used as a policy to make the ambassador's career more attractive to women. Are women really receiving higher bonuses? Hint: look at two independent variables: the male / female dummy ("sexofamb" variable) while considering the ambassadors' experience ("time" variable). Write the code below and explain your results in terms of model accuracy.**
+
+
+```{r, eval = FALSE}
+# here, I am making a model for the new independent variables mentioned about, and their ability to explain bonus
+
+m6 <- lm(mydata1$bonus ~ mydata1$sexofamb + mydata1$time)
+  
+summary(m6)  
+
+# Explanation, this model is very accurate at describing the bonuses (Adjusted r-quare of 0.7834). In addition, the independent variables are very accurate givent their very low p-values.
+  
+```
+
+**Write below the equations of the estimated bonus for men and separately for women.**
+
+y = bonus
+x1 = sexofamb
+x2 = time
+
+(women) y-hat  = 860 + 4039(1) + 450(time)
+              = 4899 + 450(time)
+
+(men) y-hat = 860 + 4039(0) + 450(time)
+              = 860 + 450(time)
+
+
+**What can you conclude?**
+
+Here, we see that men and women are not paid equally, and that women are paid more.
+
+
+## Question 6 (2 points)
+
+**You propose to do another interaction-based model, this time between sexofamb and sexofsecr. Write the code below and explain your results in terms of model accuracy.**
+
+```{r, eval = FALSE}
+
+# here, I multiply the independent var. to create the interaction variable
+m7 <- lm(mydata1$bonus ~ mydata1$sexofamb*mydata1$sexofsecr )
+  
+
+summary(m7)  
+
+# based on the summary, the interaction variable is highly significant, which suggests that there may be collinearity.
+
+```
+
+**Write below the equations of the possible scenarios (assume all the p-values are good at at least 95% for simplification purposes). Does a female Secretary of State gives higher bonuses to male or female ambassadors? Does a male secretary of State gives higher bonuses to a male or a female ambassador?**
+
+
+## Question 7 (2.5 points)
+
+**What would be your next steps for instance in terms of models, code, assessment?**
+
+
+Next, I would test for multicolinnearity between the independent vairables, as this would describe the validity of the model even further. I would also include a quartatice variable and use the summary function to see if this quadratic variable is more significant than the linear variable, which could suggest that there is a quadratic effect in the equation for buns.
+
+
+I woula also try more models with different combinations o independent variables to find the model with the highest adjusted are squared.
+
+
