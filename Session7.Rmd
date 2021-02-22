@@ -1,0 +1,32 @@
+---
+title: "Session 7"
+author: "Nicholas McInnis"
+date: '2021-02-22'
+output: html_document
+---
+
+```{r}
+# load the data set and summarize the included variables
+loans = readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session7/loans.csv")
+# rename the dependent variable for ease of use
+loans$default = loans$not.fully.paid
+
+summary(loans)
+```
+
+```{r}
+m1 <- lm(default ~ fico, data = loans)
+summary(m1)
+plot(m1)
+```
+
+
+```{r}
+# load the data set and summarize the included variables
+loans = readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session7/loans.csv")
+# rename the dependent variable for ease of use
+loans$default = loans$not.fully.paid 
+m2 <- glm(default ~ fico, data = loans, family = "binomial")
+summary(m2)
+```
+
