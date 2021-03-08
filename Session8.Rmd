@@ -1,0 +1,156 @@
+---
+title: "Session 8"
+author: "Nicholas McInnis"
+date: '2021-03-08'
+output: html_document
+---
+
+# 2. Portugal's Red Wines 
+
+```{r}
+# load the data set and summarize the included variables
+redwines <- readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session8/redwines.csv")
+summary(redwines)
+```
+
+```{r}
+redwines <- readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session8/redwines.csv")
+head(redwines$good, 20)
+```
+
+```{r}
+# Change "yes" and "no" to 1 and 0
+library(tidyverse)
+redwines <- redwines %>% mutate(good = case_when(good == "Yes" ~ 1, TRUE ~ 0))
+redwines$good <- as.factor(redwines$good)
+
+```
+
+```{r}
+# Make a model (that follows the binomial distribution) to explain what makes the win good
+m1 <- glm(good ~ fixed.acidity + volatile.acidity + residual.sugar + chlorides + total.sulfur.dioxide + density + sulphates + alcohol, data = redwines, family = "binomial")
+summary(m1)
+```
+
+```{r}
+# Log-odds ratios only
+coef(m1)
+
+# Odds ratios only
+exp(coef(m1))
+```
+
+```{r}
+# Let us keep everything constant but our predictor
+newm1 <- with(redwines, data.frame(alcohol = 8:15, fixed.acidity  = mean(fixed.acidity, na.rm = TRUE), volatile.acidity = mean(volatile.acidity, na.rm=TRUE), residual.sugar = mean(residual.sugar, na.rm = TRUE), chlorides = mean(chlorides, na.rm = TRUE), total.sulfur.dioxide = mean(total.sulfur.dioxide, na.rm = TRUE), density = mean(density, na.rm = TRUE), sulphates = mean(sulphates, na.rm = TRUE)))
+
+# let us create the predicted probabilities
+preds <- predict(m1, newm1, type = "response", se.fit=TRUE)
+preds$fit
+
+
+# Let us use the SE for a beautiful graph
+predf <- preds$fit # predicted
+lower <- preds$fit - (1.96*preds$se.fit) # lower bounds
+upper <- preds$fit + (1.96*preds$se.fit) # upper bounds
+
+# Let's plot now
+plot(8:15, predf, type="l", ylab="Predicted Probability to be Good", xlab="Alcohol", bty="n")
+lines(8:15, lower, lty=2)
+lines(8:15, upper, lty=2)
+```
+
+
+# 3. Comparing logistic models 
+
+```{r}
+# Simple logistic model
+loans = readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session7/loans.csv")
+# rename the dependent variable for ease of use
+loans$default = loans$not.fully.paid
+m2 <- glm(default ~ fico, data = loans, family = "binomial") #from session 7
+
+plot(loans$fico, loans$default)
+p = predict(m2, newdata = data.frame(fico=550:900), type = "response")
+lines(550:900, p, col = "blue", lwd = 3 )
+```
+
+```{r}
+#Chi-squared test (nested model)
+
+#Comparing two models to predict defaulted loans in R:
+m2 <- glm(default ~ fico, data = loans, family = "binomial")
+m3 <- glm(default ~ fico + purpose, data = loans, family = "binomial")
+
+anova(m2, m3, test="Chisq")
+```
+
+
+```{r}
+#AIC test (non-nested model)
+
+# perform a backward stepwise model selection to build a best predictive model
+loans.glmfull = glm(default ~ fico + dti + log.annual.inc + int.rate + purpose, family = "binomial", data = loans)
+summary(loans.glmfull)
+```
+
+```{r}
+loans.glm.step <- step(loans.glmfull)
+summary(loans.glm.step)
+```
+ 
+ 
+# 4. Ordinal logistic regression (output Y is ordinal)
+
+```{r}
+# load the data set and summarize the included variables
+dat <- readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session8/ologit.csv")
+colnames(dat)
+```
+
+```{r}
+dat <- dat %>% mutate(apply = case_when(apply == "very likely" ~ 2, apply == "somewhat likely" ~ 1, TRUE ~ 0))
+```
+
+```{r}
+library(MASS)
+## fit ordered logit model and store results 'm'
+m <- polr(as.factor(apply) ~ pared + public + gpa, data = dat, Hess=TRUE)
+## view a summary of the model
+summary(m)
+```
+
+```{r}
+# Coefficients are log odds -> convert to odds using exp
+exp(coef(m))
+
+# to explain the odds, always hold constant the other variables
+```
+ 
+ 
+ 
+# 5. Multinomial logistic regression
+
+```{r}
+library(nnet)
+library(reshape2)
+ml <- readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session8/hsbdemo.csv")
+summary(ml)
+```
+
+```{r}
+# First, we need to choose the level of our outcome that we wish to use as our baseline and specify this in the relevel function
+library(nnet)
+require(reshape2)
+ml$prog <- as.factor(ml$prog)
+ml$prog2 <- relevel(ml$prog, ref = "academic")
+
+# Then, we run our model using multinom. The multinom package does not include p-value calculation for the regression coefficients, so we calculate p-values using Wald tests (here z-tests).
+test <- multinom(prog2 ~ ses + write, data = ml)
+summary(test)
+
+# I want my odds, not my log odds
+exp(coef(test))
+```
+
+
