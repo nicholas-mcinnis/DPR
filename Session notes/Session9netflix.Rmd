@@ -1,0 +1,25 @@
+---
+title: "Session9netflix"
+author: "Nicholas McInnis"
+date: '2021-03-15'
+output: html_document
+---
+
+```{r}
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/factoextra")
+if(!require(FactoMineR)) install.packages("FactoMineR")
+```
+
+Step 1: Collecting the data
+```{r}
+library(tidyverse)
+movies <- readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session9/movies_metadata.csv")
+df <- movies %>%
+  # select features
+  select(budget, popularity, revenue, runtime, vote_average, vote_count)
+head(df)
+```
+
+
+
