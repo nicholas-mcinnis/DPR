@@ -1,0 +1,81 @@
+---
+title: "Session 10"
+author: "Nicholas McInnis"
+date: '2021-03-22'
+output: html_document
+---
+
+```{r}
+# Step 1: Data collection
+library(tidyverse)
+library(ISLR)
+library(caret)
+# Creating a train and a test dataset
+train <- Smarket %>% filter(Year < 2005)
+test <- Smarket %>% filter(Year == 2005)
+head(train)
+
+```
+
+
+```{r}
+# Step 2: Dealing with the model (KNN)
+library(e1071)
+modelknn <- train(form = Direction ~ Lag1 + Lag2, data = train,
+                method = "knn",
+                tuneGrid = expand.grid(k = seq(1, 101, by = 2)),
+                preProcess = c("center", "scale"))
+modelknn
+
+# or with k-fold cross-validation (last line)
+modelknn <- train(form = Direction ~ Lag1 + Lag2, data = train,
+                method = "knn",
+                tuneGrid = expand.grid(k = seq(1, 101, by = 2)),
+                preProcess = c("center", "scale") #,
+                trControl = trainControl(method = "cv", number = 3))
+modelknn
+
+## Plot
+plot(modelknn)
+```
+
+
+```{r}
+# TD; DR
+## Best tuning
+modelknn$bestTune
+
+## Variable importance?
+varImp(modelknn)
+```
+
+
+```{r}
+# Step 3: Test the data 
+## Let us predict the Direction, and see what it does predict indeed.
+modelknn <- train(form = Direction ~ Lag1 + Lag2, data = train,
+                method = "knn",
+                tuneGrid = expand.grid(k = seq(1, 101, by = 2)),
+                preProcess = c("center", "scale"))
+knnPredict <- predict(modelknn, newdata = test)
+df_knnPredict <- data.frame(knnPredict)
+df_knnPredict <- bind_cols(test, df_knnPredict)
+head(df_knnPredict$Direction)
+
+#Get the confusion matrix to see accuracy value and other parameter values
+confusionMatrix(knnPredict, test$Direction)
+```
+
+
+```{r}
+# Step 4: Predict (out-of-sample)
+my_own_data <- test %>% slice(1)
+
+knnPredict2 <- predict(modelknn, newdata = my_own_data)
+
+df_knnPredict2 <- data.frame(knnPredict2)
+
+head(my_own_data)
+head(df_knnPredict2)
+```
+
