@@ -6,18 +6,35 @@ output: html_document
 ---
 
 ```{r}
+# Negative binomial distribution example
+choose(29,9)*(0.10^10)*(0.90^20)
+```
+
+```{r}
+# Poisson distribution example
+lambda <- 2
+k <- 1
+(((lambda)^k)*(e^lambda))/k!
+```
+
+
+```{r}
 # load the data set and summarize the included variables
 loans = readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session7/loans.csv")
 # rename the dependent variable for ease of use
 loans$default = loans$not.fully.paid
-
 summary(loans)
+plot(loans$fico, loans$default)
 ```
 
 ```{r}
 m1 <- lm(default ~ fico, data = loans)
 summary(m1)
-plot(m1)
+plot(loans$fico, loans$default)
+  abline(1.187e+00, -1.445e-03)
+  
+
+?abline
 ```
 
 
@@ -28,5 +45,6 @@ loans = readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/sessio
 loans$default = loans$not.fully.paid 
 m2 <- glm(default ~ fico, data = loans, family = "binomial")
 summary(m2)
+
 ```
 

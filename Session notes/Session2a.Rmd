@@ -20,3 +20,8 @@ length(stack.loss)
 sample(stack.loss)
 ```
 
+```{r}
+?mean
+?sample
+```
+
