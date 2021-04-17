@@ -1,0 +1,42 @@
+---
+title: "Session 10.2"
+output: html_document
+---
+
+```{r}
+library(ISLR)
+head(Smarket)
+
+# Step 1: Data collection
+library(tidyverse)
+library(ISLR)
+library(caret)
+# Creating a train and a test dataset
+train <- Smarket %>% filter(Year < 2005)
+test <- Smarket %>% filter(Year == 2005)
+head(train)
+```
+
+```{r}
+# Step 2: Training data
+modelknn <- train(form = Direction ~ Lag1 + Lag2, data = train,
+                method = "knn",
+                tuneGrid = expand.grid(k = seq(1, 101, by = 2)),
+                preProcess = c("center", "scale"))
+modelknn
+```
+
+```{r}
+#Step 3: Test data
+knnPredict <- predict(modelknn, newdata = test)
+
+confusionMatrix(knnPredict, test$Direction)
+```
+
+```{r}
+# Step 4
+my_own_data <- test %>% slice(1)
+knnPredict2 <- predict(modelknn, newdata = my_own_data)
+head(df_knnPredict$Direction)
+```
+
