@@ -23,7 +23,9 @@ head(redwines$good, 20)
 library(tidyverse)
 redwines <- redwines %>% mutate(good = case_when(good == "Yes" ~ 1, TRUE ~ 0))
 redwines$good <- as.factor(redwines$good)
+head(redwines$good, 20)
 
+plot(redwines$good, redwines$fixed.acidity)
 ```
 
 ```{r}
@@ -48,7 +50,6 @@ newm1 <- with(redwines, data.frame(alcohol = 8:15, fixed.acidity  = mean(fixed.a
 preds <- predict(m1, newm1, type = "response", se.fit=TRUE)
 preds$fit
 
-
 # Let us use the SE for a beautiful graph
 predf <- preds$fit # predicted
 lower <- preds$fit - (1.96*preds$se.fit) # lower bounds
@@ -59,7 +60,6 @@ plot(8:15, predf, type="l", ylab="Predicted Probability to be Good", xlab="Alcoh
 lines(8:15, lower, lty=2)
 lines(8:15, upper, lty=2)
 ```
-
 
 # 3. Comparing logistic models 
 
@@ -151,6 +151,38 @@ summary(test)
 
 # I want my odds, not my log odds
 exp(coef(test))
+```
+
+
+# Applications
+```{r}
+# (1) Fit a logistic regression model to predict whether a wine is classified as good (Y=1) vs. not good (Y=0) from the variable alcohol alone.
+
+redwines <- readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session8/redwines.csv")
+redwines <- redwines %>% mutate(good = case_when(good == "Yes" ~ 1, TRUE ~ 0))
+
+glm1 <- glm(good ~ alcohol, data = redwines, family=binomial)
+
+newglm1 <- with(redwines, data.frame(alcohol = 14))
+
+# let us create the predicted probabilities
+preds <- predict(glm1, newglm1, type = "response", se.fit=TRUE)
+preds$fit
+
+# Let us use the SE for a beautiful graph
+predf <- preds$fit # predicted
+```
+
+```{r}
+# (2) Perform a formal hypothesis test to determine whther the 2 extra predictors in the model with alcohol, residual.sugar, and fixed.acidity (3 predictors) provide significantly better predictive power than the model using alcohol alone.
+
+redwines <- readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/session8/redwines.csv")
+redwines <- redwines %>% mutate(good = case_when(good == "Yes" ~ 1, TRUE ~ 0))
+
+glm2 <- glm(good ~ alcohol + residual.sugar + fixed.acidity, data = redwines, family=binomial)
+summary(glm2)
+
+anova(glm1, glm2, test="Chisq")
 ```
 
 

@@ -32,11 +32,11 @@ m1 <- lm(default ~ fico, data = loans)
 summary(m1)
 plot(loans$fico, loans$default)
   abline(1.187e+00, -1.445e-03)
-  
 
 ?abline
 ```
 
+# Logistic regression
 
 ```{r}
 # load the data set and summarize the included variables
@@ -45,6 +45,25 @@ loans = readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/sessio
 loans$default = loans$not.fully.paid 
 m2 <- glm(default ~ fico, data = loans, family = "binomial")
 summary(m2)
+```
+
+
+```{r}
+# Fitted value (prediction) and confidence interval (upper/lower boundaries)
+p = predict(m2, newdata=data.frame(fico=700), type="response", se.fit=T)
+# fit, lower, upper for 95% CI
+out = c(p$fit, p$fit - 1.96*p$se.fit, p$fit + 1.96*p$se.fit)
+names(out) = c("Fit","Lower","Upper")
+round(out, 3)
+```
+
+```{r}
+# Pseudo-R2 (McFadden)
+m2 <- glm(default ~ fico, data = loans, family = "binomial")
+nullm2 <- glm( default ~ 1, data = loans, family="binomial")
+pseudoR2 <- 1 - logLik(m2) / logLik(nullm2)
+round(pseudoR2, 4)
 
 ```
+
 
