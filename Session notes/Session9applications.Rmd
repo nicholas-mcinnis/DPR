@@ -1,0 +1,103 @@
+---
+title: "Session 9 applications"
+output: html_document
+---
+
+```{r}
+# Next, we will fit a logistic regression model in order to predict Direction using Lag1 through Lag5 and Volume. The glm() function fits generalized linear models, a class of models that includes logistic regression. The syntax generalized of the glm() function is similar to that of lm(), except that we must pass in linear model the argument family=binomial in order to tell R to run a logistic regression rather than some other type of generalized linear model.
+
+library(ISLR)
+str(Smarket)
+summary(Smarket)
+Smarket <- Smarket
+glm.fits <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data=Smarket, family=binomial)
+summary(glm.fits)
+
+# The smallest p-value here is associated with Lag1. The negative coefficient for this predictor suggests that if the market had a positive return yesterday, then it is less likely to go up today. However, at a value of 0.15, the p-value is still relatively large, and so there is no clear evidence of a real association between Lag1 and Direction.
+```
+
+
+```{r}
+# We use the coef() function in order to access just the coefficients for this fitted model. We can also use the summary() function to access particular aspects of the fitted model, such as the p-values for the coefficients.
+
+coef(glm.fits)
+summary(glm.fits)$coef
+summary(glm.fits)$coef[,4]
+```
+
+```{r}
+# The predict() function can be used to predict the probability that the market will go up, given values of the predictors. The type="response" option tells R to output probabilities of the form P(Y=1|X), as opposed to other information such as the logit. If no data set is supplied to the predict() function, then the probabilities are computed for the training data that was used to fit the logistic regression model.
+# Here we have printed only the first ten probabilities. We know that these values correspond to the probability of the market going up, rather than down, because the contrasts() function indicates that R has created a dummy variable with a 1 for Up.
+
+glm.probs = predict(glm.fits, type = "response")
+glm.probs[1:10]
+
+```
+
+```{r}
+# In order to make a prediction as to whether the market will go up or down on a particular day, we must convert these predicted probabilities into class labels, Up or Down. The following two commands create a vector of class predictions based on whether the predicted probability of a market increase is greater than or less than 0.5.
+
+glm.pred = rep("Down", 1250)
+glm.pred[glm.probs > .5] = "Up"
+
+```
+
+```{r}
+# The first command creates a vector of 1,250 Down elements. The second line transforms to Up all of the elements for which the predicted probability of a market increase exceeds 0.5. Given these predictions, the table() function can be used to produce a confusion matrix in order to determine how many observations were correctly or incorrectly classified
+
+table(glm.pred, Smarket$Direction)
+(507 + 145) /1250
+mean(glm.pred==Direction )
+
+```
+```{r}
+# In order to better assess the accuracy of the logistic regression model in this setting, we can fit the model using part of the data, and then examine how well it predicts the held out data. This will yield a more realistic error rate, in the sense that in practice we will be interested in our model’s performance not on the data that we used to fit the model, but rather on days in the future for which the market’s movements are unknown.
+
+# To implement this strategy, we will first create a vector corresponding to the observations from 2001 through 2004. We will then use this vector to create a held out data set of observations from 2005.
+
+train = (Smarket$Year < 2005)
+Smarket.2005 = Smarket [!train,]
+dim(Smarket.2005)
+Direction.2005 = Smarket$Direction [!train]
+```
+
+# Machine learning (all variables)
+
+```{r}
+glm.fits = glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data=Smarket, family=binomial, subset=train)
+glm.probs = predict(glm.fits, Smarket.2005, type = "response")
+
+```
+
+```{r}
+glm.pred=rep("Down",252)
+glm.pred[glm.probs >.5]= "Up"
+table(glm.pred, Direction.2005)
+mean(glm.pred == Direction.2005)
+mean(glm.pred != Direction.2005)
+
+```
+
+
+# Marchine learning (Lag1 + Lag 2)
+
+```{r}
+glm.fits = glm(Direction ~ Lag1 + Lag2, data = Smarket, family = binomial, subset = train)
+coef(glm.fits)
+glm.probs = predict (glm.fits, Smarket.2005, type = "response")
+glm.pred = rep("Down",252)
+glm.pred[glm.probs >.5] = "Up"
+table(glm.pred, Direction.2005)
+106/(106+76)
+mean(glm.pred == Direction.2005) # Accuracy/amount of daily moves correctly predicted
+```
+
+```{r}
+# Suppose that we want to predict the returns associated with particular values of Lag1 and Lag2. In particular, we want to predict Direction on a day when Lag1 and Lag2 equal 1.2 and 1.1, respectively, and on a day when they equal 1.5 and −0.8. We do this using the predict() function.
+predict (glm.fits,newdata = data.frame(Lag1=c(1.2 ,1.5), Lag2=c(1.1,-0.8) ), type = "response")
+
+```
+
+
+
+
