@@ -3,6 +3,7 @@ title: "Session 9 applications"
 output: html_document
 ---
 
+# Logistic regression
 ```{r}
 # Next, we will fit a logistic regression model in order to predict Direction using Lag1 through Lag5 and Volume. The glm() function fits generalized linear models, a class of models that includes logistic regression. The syntax generalized of the glm() function is similar to that of lm(), except that we must pass in linear model the argument family=binomial in order to tell R to run a logistic regression rather than some other type of generalized linear model.
 
@@ -61,7 +62,7 @@ dim(Smarket.2005)
 Direction.2005 = Smarket$Direction [!train]
 ```
 
-# Machine learning (all variables)
+## Machine learning (all variables)
 
 ```{r}
 glm.fits = glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 + Lag5 + Volume, data=Smarket, family=binomial, subset=train)
@@ -79,7 +80,7 @@ mean(glm.pred != Direction.2005)
 ```
 
 
-# Marchine learning (Lag1 + Lag 2)
+## Marchine learning (Lag1 + Lag 2)
 
 ```{r}
 glm.fits = glm(Direction ~ Lag1 + Lag2, data = Smarket, family = binomial, subset = train)
@@ -92,12 +93,68 @@ table(glm.pred, Direction.2005)
 mean(glm.pred == Direction.2005) # Accuracy/amount of daily moves correctly predicted
 ```
 
+### Prediction
 ```{r}
 # Suppose that we want to predict the returns associated with particular values of Lag1 and Lag2. In particular, we want to predict Direction on a day when Lag1 and Lag2 equal 1.2 and 1.1, respectively, and on a day when they equal 1.5 and −0.8. We do this using the predict() function.
 predict (glm.fits,newdata = data.frame(Lag1=c(1.2 ,1.5), Lag2=c(1.1,-0.8) ), type = "response")
 
 ```
+ 
+ 
+ 
+# K-nearest neighbors
 
+```{r}
+# Step 1: Data collection
+
+library(tidyverse)
+library(ISLR)
+library(caret)
+Smarket <- Smarket
+# Creating a train and a test dataset
+train <- Smarket %>% filter(Year < 2005)
+test <- Smarket %>% filter(Year == 2005)
+
+```
+
+```{r}
+# Step 2: Training data
+
+modelknn <- train(form = Direction ~ Lag1 + Lag2, data = train,
+                method = "knn",
+                tuneGrid = expand.grid(k = seq(1, 101, by = 2)),
+                preProcess = c("center", "scale"))
+
+# What is the best K?
+modelknn$bestTune
+# best K=1
+
+# Variable importance
+varImp(modelknn)
+# Lag1 is most important
+
+```
+
+
+```{r}
+# Step 3. Model performance evaluation with the test dataset
+knnPredict <- predict(modelknn, newdata = test)
+
+df_knnPredict <- data.frame(knnPredict)
+df_knnPredict <- bind_cols(test, df_knnPredict)
+head(df_knnPredict$Direction)
+
+confusionMatrix(knnPredict, test$Direction)
+
+```
+
+```{r}
+my_own_data <- test %>% slice(1)
+knnPredict2 <- predict(modelknn, newdata = my_own_data)
+df_knnPredict2 <- data.frame(knnPredict2)
+head(my_own_data)
+head(df_knnPredict2)
+```
 
 
 
