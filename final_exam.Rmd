@@ -1,0 +1,467 @@
+---
+title: "FINAL EXAM"
+author: "Nicholas McInnis - 11290398"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+---
+
+**Welcome to this final exam!**
+
+Before doing anything, replace the author information in the YAML with your own information.
+
+You can use the PDF version on ZoneCours for your comfort, but the answers must be provided in the Rmd file.
+
+> You can start right now and you have 3 hours. You can use all the material made available for this course. Do not miss the deadline on ZoneCours, otherwise you will not be able to upload it, I cannot accept your files by emails or any other means. So, please give yourself enough time to upload your file on ZoneCours to avoid any potential issue (connections, etc.).
+
+Please follow the directions for each question. **Only this Rmd file will be graded** (not Word, not the html version, etc.).
+
+Once completed:
+
+- Step 1. save this Rmd file in your session as an Rmd file by just clicking on the little disk icon in RStudio.cloud,
+
+- Step 2. select it on the bottom-right panel by checking the little white box and then export it by clicking on the "more" button in the bottom-right panel,
+
+- Step 3. and then upload it to ZoneCours.
+
+# Important recommendations
+
+- This final exam is graded over 25 points and is organized in four exercises.
+
+- Have a look at the whole final exam first to gauge how much time you can devote to each question. This final exam values different skill sets. If you do not know the mathematical explanation, use plain English, you can always explain. I give partial credits.
+
+- VERY IMPORTANT: do not focus only on the code, do not provide code without explanations of why you use this code. So, do not fall into the trap of just providing a code chunk thinking that it is the answer. It is only a partial answer.
+
+- **Individual exam, no communications allowed**. If you are not sure about your understanding of a question, make assumptions.
+
+- **You have access to (only) all our class material**.
+
+\newpage
+
+---
+
+# Exercise 1: Foundations Questions (Total points: 4)
+
+Directions: no copying and pasting from your class material. Replace the mock text, which is there to give you a sense of how long/concise your answer should be.
+
+## Question 1 (1 point)
+
+**In your own words, can you explain the difference between a negative binomial distribution and a Poisson distribution?**
+
+The negative binomial distribution and the poisson distribution have several notable differences. First, the negative binomial distribution measures the probability of observing the kth success on the nth trial, in other words, the amount of successes in a given amount of *trials*. On the other hand, the poisson distribution measures the probability of observing a certain number of rare events in a large population over a fixed amount of *time*. Hence, these distributions measure the probability of different events on different scales. Secondly, the distributions are very different from one another graphically. Thirdly, the distributions are not easily interchangeable. For example, if a research phenomenon consists of a rare event, such as the occurrence of tornadoes in Quebec, researchers should employ a poisson distribution as this aligns with rare events, unlike the negative binomial distribution. 
+ 
+ 
+## Question 2 (2 points)
+
+**In your own words, can you explain the difference between inferential statistics (inference and goodness of fit principles) and machine learning?**
+
+Inferential statistics and machine learning have several differences. Inferential statistics involves creating a line of best fit to measure a correlation between two variables, which will then be used to make statistical inferences/generalizations on a larger population. This method uses confidence intervals, R-squared and a certain level of confidence (e.g. 95%) to make inferences.
+
+Similarly machine learning also involves testing the relationship between two variables. However, the approach is very different. Machine learning involves process (using 7 principles) by which a model is trained and tested within a sample to then be used to make predictions outside the sample. The accuracy of these predictions is said to be higher than that of inferential statistics, as the model is tested within the sample, often through multiple iterations (k-fold cross-validation), before making out-of-sample predictions. This feature of machine learning add substantial rigor to research methods and provides researchers with the ability to make more sound and calculated out-of-sample predictions, resulting in fewer errors. However, researchers must follow the 7 principles of machine learning to ensure such rigor, and to avoid a *garbage in garbage out* scenario.
+
+
+## Question 3 (1 point)
+
+**In your own words, can you explain how we measure accuracy in a machine learning context?**
+
+In machine learning, accuracy is measured as the portion of true predictions out of total predictions (TP+TN/TP+FP+TN+FN). In plain English, accuracy measures the frequency that the predicted outcomes of the model, predicted using the train (80%) portion of the dataset, match the true outcomes of the sample (from the test portion (20%)). This provides insight into model's accuracy in predicting true outcomes. Preferably, we expect that the accuracy of the model exceeds the probability of a random walk. For example, if the random probability of the stock market going up or down is 50%, we would aim for the accuracy of the model to exceed 50% to justify its use.
+
+
+\newpage
+
+---
+
+# Exercise 2 (Total points: 5)
+
+Let us imagine we are in 2006, and you have been selected as a referee for this submitted article to our academic journal: Klaus Uhlenbruck, Peter Rodriguez, Jonathan Doh, Lorraine Eden,  (2006) The Impact of Corruption on Entry Strategy: Evidence from Telecommunication Projects in Emerging Economies. Organization Science 17(3):402-414. https://doi.org/10.1287/orsc.1060.0186
+
+Here is the link to the full version of the article, copy and paste it in your browser or go to our course website: <https://pubsonline-informs-org.proxy2.hec.ca/doi/pdf/10.1287/orsc.1060.0186>
+
+In the space below, **analyze this article with your new analytical skills.**
+
+In particular, highlight the contributions, the research question, the results, the models accuracy and the validity of the empirical estimations. Is there anything missing, something you would add to be sure?
+
+Would you recommend:
+
+- accept
+- revise and resubmit with minor revisions
+- revise and resubmit with major revisions
+- reject
+
+> Type your analysis below. Replace the mock text.
+
+In this article, the researchers set out to understand the effect of *the pervasiveness of corruption* and *the arbitrariness of corruption* (independent variables) on the *MNEs choice of entry mode* (equity mode (WOS or JV) or non-equity mode) (multinomial dependent variable) in emerging economies. The researchers also included a large list of very relevant control variables to effectively isolate the impact of the predictors. As regards methodology, the researchers used data from the World Bank on the corruption levels of 80 countries and data on 400 telecommunications companies. As regards models, the researchers used a multinomial logistic modeling, given that the outcome variables are multinomial. These models also tested interaction terms between pervasiveness and arbitrariness. As regards contributions, researchers found that firms engaging in equity entry modes prefer joint-ventures over wholly-owned subsidiaries when arbitrariness is high, in line with their hypotheses.
+ 
+Although the article presents valuable findings, questions arise as regards the accuracy and validity of these findings. Firstly, many the regression results in Table 2 feature demonstrate low p-values, which indicates that the variables used do not effectively capture the variability in the outcome variable. Here, the researchers should add more corruption-related independent variables and compare pervasiveness and arbitrariness to these variables, which could better explain the decision on entry modes in emerging economies. Secondly, as a general caveat, the research does not pay much attention to the contexts of different emerging economies. In other words, the research does not consider the impact that pervasiveness and arbitrariness of corruption may vary from context to context. This could potentially lead to the researchers needing to make different models for different types of emerging economies to more effectively capture the impact of the a dependent variables. Lastly, the article does present several inferences, however does not offer predictions out of sample. To correct this, the researchers can implement a machine learning process to the methodology to increase the rigor of the findings, and provide the opportunity to make out-of-sample predictions, and the number of observations in current datasets allow this. Therefore, I would recommend revising and resubmitting with minor revisions for the reasons mentioned.
+
+
+> End of your answer
+
+\newpage
+
+---
+
+# Exercice 3 (Total points: 8)
+
+You have been hired as a data analyst in a well-known consulting firm as a "super consultant" for the fast-growing fintech industry.
+
+First run this code chunk to have access to the data:
+
+```{r, warning = FALSE, message = FALSE}
+# load the data set and summarize the included variables
+loans = readr::read_csv("https://www.warin.ca/datalake/courses_data/qmibr/09356478/loans.csv")
+summary(loans)
+```
+
+## Question 1 (1 point)
+
+The current team of consultants has already worked on a research protocol. First, they want you to run a single linear regression to see the impact of the "fico" score on the probability of "default". Type the code and how do you interpret the results?
+
+```{r, warning = FALSE, message = FALSE}
+# Given that "default" is a binomial outcome variable, we must use in the glm() function (binomial logistic regression) with family = binomial to create the model.
+
+m1 <- glm(default ~ fico, data = loans, family = "binomial")
+  
+# To understand the impact of "FICO", we must look at the summary
+summary(m1)
+
+
+```
+
+Explanations:
+
+Here, FICO has a very low P-value, at *** (0) of significance, indicates that the predictor variable is effective at evaluating the impact on "default"
+
+
+
+
+
+
+## Question 2 (1 point) 
+
+You propose to check the validity of their approach. Start by plotting the "fico" score over the "default" dependent variable. What do you conclude?
+
+```{r, warning = FALSE, message = FALSE}
+# plot here
+
+# We use the plot function wit x=FICO and y=default
+plot(loans$fico, loans$default)
+
+```
+
+Explanations:
+
+Here, we conclude that the approach is valid. Given that the observations for the outcome variable are binary, the data would not be suitable for linear regression analysis, which is why a binary logistic model is appropriate.
+
+
+
+
+## Question 3 (2 points)
+
+Based on the previous plot and your conclusions, you realize that you need to change the current protocol. You decide to run a new estimation technique. Also, you want to use "fico" and "log.annual.inc" as the only two independent variables, while "default" is still your dependent variable. Compute your model in the following code chunk and compute the coefficients to explain what one unit increase respectively in "fico" and "log.annual.inc" means in terms of probability of default.
+
+```{r, warning = FALSE, message = FALSE}
+# Here we use the same approach as model 1 but we add log.annual.inc as an independent variable.
+m2 <- glm(default ~ fico + log.annual.inc, data = loans, family = "binomial")
+summary(m2)
+
+# Here, we use the coef() function to find the coefficients.
+coef(m2)
+# As regards the direction of the coefficients, we can interpret that both independent variables are inversely related to default
+
+# However, These coefficients represent the log odds, so we must convert these to odds to better interpret their effect on "default" using the exp() function.
+exp(coef(m2))
+
+# Magnitude effect of "FICO"
+round((1-0.9883290)*100, 3)
+
+# Magnitude effect of "log.annual.inc"
+round((1-0.9284743)*100, 3)
+
+```
+
+Explanations:
+
+As regards the magnitude of the coefficients, we can interpret the following: 
+- For a one-unit increase in FICO score, the odds/probability of the loan defaulting decrease by 1.167% holding fixed all other independent variables (log.annual.inc).
+- For a one-unit increase in log.annual.inc, the odds/probability of the loan defaulting decrease by 7.153% holding fixed all other independent variables (FICO).
+
+
+
+## Question 4 (2 points)
+
+The current team was not able to find the $R^2$ in the summary table. Obviously, they again ask you. What is the variance explained by your second model, m2? Are you satisfied? Which model is better between m1 and m2? Explain.
+
+```{r, warning = FALSE, message = FALSE}
+# The answer to this question must be broken down into 2 sections. 
+# 1) First, the R^2 of m2 will be determined using the Pseudo-R^2 function by McFadden, given that this is a logistic function. This measure compares the log-likelihood of m2 to the log-likelihood of a null m2 to find R^2.
+m2<- glm(default ~ fico + log.annual.inc, data = loans, family = "binomial")
+nullm2 <- glm( default ~ 1, data = loans, family="binomial")
+pseudoR2 <- 1 - logLik(m2) / logLik(nullm2)
+round(pseudoR2, 4)
+
+# 2) Second, to compare M1 and M2, we must compare them on the basis of chi-square given that these are a nested logistic regression models. Models with the highest Chi-square are better. Chi-square comparison is done using the function below:
+anova(m1, m2, test="Chisq")
+
+  
+```
+
+Explanations:
+1) Based on McFadden calculation, we find a Pseudo-R^2 of 2.74% for m2. In other words, 2.74% of the variance in "default" is explained by "FICO" and "log.annual.inc". This represents a very low and unsatisfactory R^2, given that R^2 values between 40% and 50% indicate a very good fit for logistic regression.
+2) Based on the model comparison using Chi square, we can determine that the additional variable, log.annual.inc, does not add value given that it's chi-square value is very high (0.1077). Therefore, m1 is more effective at explaining default.
+
+
+
+## Question 5 (1 point)
+
+Based on the previous results, the client wants to create a new product relying on your data analytics approach. It will be their first actual "fintech" product. They want to target people with a fico score of 650. Your team proposes to compute a "point estimate" of the prediction of the probability of defaut for a fico score of 650. You do it in the following code chunk.
+
+```{r, warning = FALSE, message = FALSE}
+# New product line
+
+# Before calculating a point estimate using the model, we must first write out the model for the logistic regression using its coefficient estimates. These coefficient estimates are determined using the following function:
+coef(m1)
+
+# With the score efficient we can now calculate the point estimate
+1/(1+2.71828^-(6.71887760+(-0.01187747*650)))
+
+
+# Option 2: We can calculate this point estimate using a function that includes the point estimate of 650 for FICO, generating the same result!
+newm1 <- with(loans, data.frame(fico = 650))
+preds <- predict(m1, newm1, type = "response", se.fit=TRUE)
+preds$fit
+
+
+
+```
+
+Explanations:
+
+Using the above calculation, the point esimate using m1 (the better of the two models) for a FICO score of 650 is 0.2686511. In other words, a FICO score of 650 create a probability of defaulting of 26.86%. 
+
+
+
+## Question 6 (1 point)
+
+Happy with the point estimate, they are ready to leave the meeting and launch their product targeting people with a fico score of 650. But, you tell them that this result is just a "point estimate." In awe, your team look at you, the "newbie." Remembering one of your sessions with your old professor, you propose to compute a 95% confidence interval. In the following code chunk, compute the 95% confidence interval for the prediction of default for a fico score of 650. Explain.
+
+```{r, warning = FALSE, message = FALSE}
+# Prediction
+
+# Using the functions below, we can determine the fitted value upper and lower bounds (confidence interval)
+predf <- preds$fit # predicted
+lower <- preds$fit - (1.96*preds$se.fit) # lower bounds
+upper <- preds$fit + (1.96*preds$se.fit) # upper bounds
+
+```
+
+Explanations:
+
+Lower bound: 0.249
+Fitted value: 0.269
+Upper bound: 0.288
+
+Using these functions, we can establish a confidence interval for the true population parameter: [0.249, 0.288]. In other words, we are 95% confident that this interval contains the true population parameter, or fitted value.
+
+
+
+\newpage
+
+---
+
+# Exercise 4 (Total points: 8)
+
+
+Remember, Costel Calin and Kevin Buterbaugh published an article titled "Male  versus Female Career Ambassadors: Is the US Foreign Service Still Biased?" in *Foreign Policy* (Volume 15, issue 2, April 2019). Here is the abstract of the original study:
+
+> "This paper examines the appointment of male versus female career diplomats to ambassadorial posts. We assess the role played by ambassadors’ individual characteristics, including education, marital status, and number of children, and host countries’ characteristics, such as quality of life and regime type, in determining if a male or female is appointed to ambassadorial positions to represent the United States in foreign countries. The time frame of this study is the entire presidencies of Bill Clinton and George W. Bush (1993–2008), during which 603 career diplomats were appointed as ambassadors. The study provides empirical evidence that there remain significant differences between women and men serving as ambassadors. Female ambassadors are more likely to be single and have no children and are less likely to be Ivy League graduates than male ambassadors. Furthermore, they are more likely to be appointed to countries with lower quality of life and better human rights records. Finally, time plays a role in the likelihood of a woman being appointed as ambassador."
+
+Just to give you an idea about their models:
+
+|        Variable       |     Model 1    |     Model 2     |     Model 3     |
+|:---------------------:|:--------------:|:---------------:|:---------------:|
+|     Marital status    | 1.991*** (.41) | 2.061*** (.408) | 2.046*** (.408) |
+|        Children       |  .718** (.360) |  .705** (.359)  |  .729** (.361)  |
+|  Education Ivy League |   .397 (.318)  |        -        |        -        |
+|       Graduate 1      |        -       |   0.74 (.200)   |        -        |
+|       Graduate 2      |        -       |        -        |   -.090 (.302)  |
+|          Time         |  -.062* (.032) |  -.060* (.032)  |  -.059* (.032)  |
+|  Quality of life HDI  | 1.710** (.861) |  1.813** (.861) |  1.805** (.860) |
+|       Inf.mort.       |        -       |        -        |        -        |
+|  GDP/capita (logged)  |        -       |        -        |        -        |
+| Regime type Emp.Index | -.104** (.043) |  -.104** (.043) |  -.104** (.043) |
+|         Polity        |        -       |        -        |        -        |
+| Power of host country |   .094 (.091)  |   .093 (.090)   |   .090 (.090)   |
+|  Secr. of state (sex) |   .261 (.294)  |   .294 (.293)   |   .297 (.294)   |
+|           N           |       455      |       456       |       456       |
+|      $\chi^2$         |      96.68     |      95.37      |      95.32      |
+|          P <          |      0.000     |      0.000      |      0.000      |
+|         $R^2$         |      .199      |       .196      |       .196      |
+
+
+
+Both authors were very happy with the work you did in the first report (ok, midterm exam). Remember, they updated their dataset with a new variable called "bonus". It captures the yearly bonuses ambassadors receive to compensate for some of the difficulties for living in their host country (cost of living, potential threats, etc.). Apparently, this calculation is done by AI. Both authors wonder whether they could use their updated dataset to do some new analyses. They are worried about biases in the bonus calculation.
+
+Here is a list of the variables:
+
+| Variable name | Definition
+|---------------|----------------------------------------------------------------------|
+| sexofamb      | ambassador's sex, 1: female, 0: male
+| married       | ambassador's marital status
+| children      | 1; if the ambassador has 1 or more children, 0: otherwise
+| HDI           | human development index of host country
+| infmort       | infant mortality in host country
+| ivy           | Ivy league school graduate
+| time          | number of years in the diplomacy
+| sexofsecr     | Secretary of State's sex, 1: female, 0: male
+| graduate1     | Ambassador's education: 0 = undergraduate, 1 = Masters, 2 = PhD
+| graduate2     | Ambassador's education: 0 = undergraduate, 1 = graduate
+
+They put their dataset on a highly secured server with the required packages, which you can access through this code (run the code chunk by clicking on the little green triangle on the top-right of the code chunk). This code chunk will verify also the packages and install the necessary ones. These packages should already be present on your rstudio.cloud session based the previous applications-based exercises, but it is a safety feature:
+
+```{r, message = FALSE, warning = FALSE}
+if (!require("dplyr")) install.packages("dplyr")
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/factoextra")
+if(!require(FactoMineR)) install.packages("FactoMineR")
+if(!require(GPArotation)) install.packages("GPArotation")
+if(!require(psych)) install.packages("psych")
+
+library(dplyr)
+library(readr)
+
+mydata1 <- readr::read_csv("https://warin.ca/datalake/courses_data/qmibr/09128734/us_confidential_2.csv")
+
+# uncomment (=remove the hashtag) to view your dataframe
+#View(mydata1)
+```
+
+## Question 1 (1 point)
+
+Very happy with your work during your first meeting with them, Costel Calin and Kevin Buterbaugh want you to help them use machine learning techniques. They first want to find the important "components" in the dataset. You validate this first step and explain that it is indeed very helpful since you will be able to do some "dimension reduction." First, create a new dataframe called mydata2 based on mydata1 and select the following variables: sexofamb, married, children, HDI, infmort, ivy, time, sexofsecr, loggdp2, graduate1, and graduate2.
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+mydata2 <- mydata1 %>%
+  select(sexofamb, married, children, HDI, infmort, ivy, time, sexofsecr, loggdp2, graduate1, graduate2)
+
+# Note for professor, here I was not able to run my code chunk because do I install all the necessary packages and I believe my coat trunk is right in without errors, I did not run. So I will continue writing out the functions even though this one didn't work. If it did run, I would be able to interpret the findings.  
+
+# We can determine the important components using the following formula:
+
+library("FactoMineR")
+res.pca <- PCA(mydata2, graph = FALSE)
+
+```
+
+## Question 2 (1 point)
+
+Now, you propose to extract the eigenvalues (variances) and create a scree plot. Type the code and explain.
+
+```{r, warning = FALSE, message = FALSE}
+# The eigen values for the principal components can be found using the following function.
+library(factoextra)
+get_eig(res.pca)
+
+# these eigenvalues can be visualized with a scree plot using the following function:
+fviz_screeplot(res.pca, addlabels = TRUE, ylim = c(0, 50))
+
+```
+
+Explanations:
+
+Any factor with an eigenvalue equal to or higher than 1 explains more variance than a single observed variable.
+
+
+
+
+## Question 3 (1 point)
+
+How many dimensions do you advise to keep to explain around 60% of the variance? Which variables contribute the most to each dimension? Type the command in the following code chunk and explain:
+
+```{r, warning = FALSE, message = FALSE}
+# variables
+# First, we must identify the variables in the principle components, can be done with the following function:
+var <- get_pca_var(res.pca)
+var
+
+# Second, we can determine the contribution of each of those variables to each of the principal components using the following function:
+head(var$contrib)
+
+```
+
+Explanations:
+
+
+
+
+
+
+
+
+## Question 4 (1 point)
+
+You decide now to do a factor analysis on the whole dataframe, mydata1, since a factor analysis allows you to mix quantitative and qualitative data. Create a scree plot by typing the command in the following code chunk and explain:
+
+```{r, warning = FALSE, message = FALSE}
+# Scree plot
+
+library("FactoMineR")
+library(factoextra)
+
+# these functions present the data
+data(mydata1)
+head(mydata1)
+
+# this function is used to conduct the factor analysis
+res.famd <- FAMD(mydata1, graph = FALSE)
+
+
+```
+
+## Question 5 (2 points)
+
+Create a graph representing the top 2 dimensions (factors) and which quantitative variables only contribute to these dimensions. Explain.
+
+```{r, warning = FALSE, message = FALSE}
+# Graph with quantitative varaibles
+
+# These functions are used to graph which variables contribute to the top two dimensions
+fviz_screeplot(res.famd)
+fviz_famd_var(res.famd)
+
+
+```
+
+Explanations:
+
+Based on this visualization, we can determine that dimensions one and two contain the most amount of variation. We can also determine that ambassador has the greatest impact on dimensions one and two, followed by country.
+
+
+
+
+
+
+## Question 6 (2 points)
+
+Based on the previous graph, you want to keep 3 dimensions (factors). You assume that education would be one, gender and marital status would be another one, and variables such as HDI would be the last one. Compute a factor analysis with three factors and represent a diagram.
+
+```{r, warning = FALSE, message = FALSE}
+# 3 factors
+
+threefactor <- fa(mydata1, nfactors = 3, rotate = "oblimin", fm = "minres")
+print(threefactor$loadings, cutoff = 0.3)
+
+
+```
+
+
+Explanations:
+
+
+
+
+
+
